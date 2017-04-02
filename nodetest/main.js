@@ -17,12 +17,14 @@ cell1.innerHTML = "NEW CELL1";
 cell2.innerHTML = "NEW CELL2";
 cell3.innerHTML = "NEW CELL3";
 cell4.innerHTML = "NEW CELL4";
-cell5.innerHTML = "NEW CELL5";
+cell5.innerHTML = '<button class="btn btn-success" onclick="editRow()">Edit</button>';
 
-console.log(table);
+function insertRow(rowIndex) {
 
-function insertRow() {
-    var row = table.insertRow(myTable.rows.length - 2);
+    if (rowIndex == undefined) {
+        rowIndex = table.rows.length - 2;
+    }
+    var row = table.insertRow(rowIndex);
 
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
@@ -34,6 +36,19 @@ function insertRow() {
     cell2.innerHTML = document.getElementById('cell2').value;
     cell3.innerHTML = document.getElementById('cell3').value;
     cell4.innerHTML = document.getElementById('cell4').value;
-    cell5.innerHTML = document.getElementById('cell5').value;
+    cell5.innerHTML = '<button class="btn btn-success">Edit</button>';
+
+    table.deleteRow(rowIndex+1);
 
 }
+
+$(".btn-success").on("click", function(event, elem){
+    $(this).closest("tr").find("td").each(function(idx, itm){
+        console.log(itm);
+        if (idx != 4) {
+            itm.innerHTML = '<input type="text" class="form-control" id="cell' + (idx + 1) + '" size="10" value="' + itm.innerHTML + '">';
+        } else {
+            itm.innerHTML = '<button class="btn btn-info" onclick="insertRow(this.parentNode.parentNode.rowIndex)">Submit</button>';
+        }
+    });
+});
