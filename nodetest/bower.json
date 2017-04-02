@@ -1,0 +1,18 @@
+{
+  "name": "nodetest",
+  "version": "1.0.0",
+  "homepage": "https://github.com/malashta/nodetest",
+  "authors": [
+    "Serge Malashta"
+  ],
+  "description": "",
+  "license": "Apache",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
