@@ -17,12 +17,12 @@ cell1.innerHTML = "NEW CELL1";
 cell2.innerHTML = "NEW CELL2";
 cell3.innerHTML = "NEW CELL3";
 cell4.innerHTML = "NEW CELL4";
-cell5.innerHTML = '<button class="btn btn-success" onclick="editRow()">Edit</button>';
+cell5.innerHTML = '<button class="btn btn-success">Edit</button>';
 
-function insertRow(rowIndex) {
+function insertRow(value, rowIndex) {
 
     if (rowIndex == undefined) {
-        rowIndex = table.rows.length - 2;
+        rowIndex = table.rows.length - 1;
     }
     var row = table.insertRow(rowIndex);
 
@@ -38,17 +38,22 @@ function insertRow(rowIndex) {
     cell4.innerHTML = document.getElementById('cell4').value;
     cell5.innerHTML = '<button class="btn btn-success">Edit</button>';
 
-    table.deleteRow(rowIndex+1);
+    if (value == true) {
 
+        table.deleteRow(rowIndex + 1);
+
+    }
 }
 
-$(".btn-success").on("click", function(event, elem){
+
+
+$(".btn-success").on("click", function (event, elem){
     $(this).closest("tr").find("td").each(function(idx, itm){
-        console.log(itm);
         if (idx != 4) {
             itm.innerHTML = '<input type="text" class="form-control" id="cell' + (idx + 1) + '" size="10" value="' + itm.innerHTML + '">';
         } else {
-            itm.innerHTML = '<button class="btn btn-info" onclick="insertRow(this.parentNode.parentNode.rowIndex)">Submit</button>';
+            itm.innerHTML = '<button class="btn btn-info" onclick="insertRow(true, this.parentNode.parentNode.rowIndex)">Submit</button>';
+
         }
     });
 });
