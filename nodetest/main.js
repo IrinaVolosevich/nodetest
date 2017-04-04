@@ -1,34 +1,45 @@
-
+// Find a <table> element with id="myTable":
 var table = document.getElementById('myTable');
 
-$('.navbar-form').submit(function() {
-    text = jQuery("input#text").val();
-    $.ajax({
-        type: 'GET',
-        url: 'http://localhost:3001/user/email',
-        data: {email: text},
-        dataType: 'json'
-    })
-        .done(function (response) {
-            console.log(response);
-            for (var c = 0; c < response.length; c++) {
-                    var cells = [];
-                    if (table.rows.length > 3) {
-                        table.deleteRow(table.rows.length - 1);
-                        var row = table.insertRow(table.rows.length);
-                    } else {
-                        var row = table.insertRow(table.rows.length);
-                    }
-                    for (var i = 0; i < 5; i++) {
-                        cells[i] = row.insertCell(i);
-                    }
-                    cells[0].innerHTML = c;
-                    cells[1].innerHTML = response[c].name;
-                    cells[2].innerHTML = response[c].soname;
-                    cells[3].innerHTML = response[c].email;
-                    cells[4].innerHTML = response[c].birthday;
-                }
-        });
+$('.btn-info').on('click', function( event ) {
+    text = document.getElementById("text").value;
+    var xhr = new XMLHttpRequest(),
+        method = "GET",
+        url = "http://localhost:3001/user/email?email=" + text;
+
+    xhr.open(method, url, true);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            try {
+                var data = JSON.parse(xhr.responseText);
+            } catch (err) {
+                console.log(err.message + " in " + xhr.responseText);
+                return;
+            }
+
+            for (var i = 0; i < data.length; i++) {
+
+                var row = table.insertRow(table.rows.length - 1);
+
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                var cell5 = row.insertCell(4);
+
+                cell1.innerHTML = (i + 1);
+                cell2.innerHTML = data[i]["name"];
+                cell3.innerHTML = data[i]["soname"];
+                cell4.innerHTML = data[i]["email"];
+                cell5.innerHTML = data[i]["birthday"];
+
+            }
+        }
+    };
+
+    xhr.send();
+
 });
 
 
