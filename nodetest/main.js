@@ -1,7 +1,7 @@
 var table = document.getElementById('myTable');
 
 function textFind() {
-    text = document.getElementById("text").value;
+    var text = document.getElementById("text").value;
     start(text);
 }
 
@@ -18,7 +18,7 @@ function start(text) {
                 print(xhr.responseText);
             } catch (err) {
                 console.log(err.message + " in " + xhr.responseText);
-                return;
+                return false;
             }
         }
     };
@@ -32,7 +32,7 @@ function print(responseText) {
     for (var i = 0; i < data.length; i++) {
 
         var row = table.insertRow(table.rows.length - 1);
-        
+
         if (table.rows.length > 3) {
             table.deleteRow(table.rows.length - 1);
             var row = table.insertRow(table.rows.length);
