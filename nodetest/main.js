@@ -30,9 +30,7 @@ function print(responseText) {
     console.log(responseText);
     var data = JSON.parse(responseText);
     for (var i = 0; i < data.length; i++) {
-
-        var row = table.insertRow(table.rows.length - 1);
-
+        
         if (table.rows.length > 3) {
             table.deleteRow(table.rows.length - 1);
             var row = table.insertRow(table.rows.length);
