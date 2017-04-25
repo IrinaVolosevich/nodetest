@@ -1,2 +1,6 @@
 sdvgff
 hello
+<<<<<<< HEAD
+=======
+123
+>>>>>>> new
